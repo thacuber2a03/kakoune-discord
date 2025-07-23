@@ -7,7 +7,7 @@ define-command -hidden discord-fifo-send -params 1 %{ nop %sh{
 define-command discord-presence-enable \
     -docstring "Enable Discord rich presence for this kakoune session" %{
     evaluate-commands %sh{
-        if [ -z "$kak_opt_discord_fifo" ] && [ "$(pidof Discord)" ]; then
+        if [ -z "$kak_opt_discord_fifo" ] && [ "$(pidof vesktop)" ]; then
             fifo=${TMPDIR:-/tmp}/kakoune-discord
             if [ ! -p "$fifo" ]; then
                 mkfifo "$fifo"
@@ -17,8 +17,8 @@ define-command discord-presence-enable \
 set-option global discord_fifo $fifo
 discord-fifo-send '+'
 
-hook global -group discord FocusIn .* %{ discord-fifo-send %reg{%} }
-hook global -group discord WinDisplay .* %{ discord-fifo-send %reg{%} }
+hook global -group discord FocusIn .* %{ discord-fifo-send '%reg{%} at %val{cursor_line}:%val{cursor_char_column}' }
+hook global -group discord WinDisplay .* %{ discord-fifo-send '%reg{%} at %val{cursor_line}:%val{cursor_char_column}' }
 hook global -group discord KakEnd .* %{ discord-fifo-send '-' }
 
 define-command discord-presence-disable \
