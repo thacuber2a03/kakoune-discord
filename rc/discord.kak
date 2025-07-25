@@ -17,8 +17,8 @@ define-command discord-presence-enable \
 set-option global discord_fifo $fifo
 discord-fifo-send '+'
 
-hook global -group discord FocusIn .* %{ discord-fifo-send '%reg{%} at %val{cursor_line}:%val{cursor_char_column}' }
-hook global -group discord WinDisplay .* %{ discord-fifo-send '%reg{%} at %val{cursor_line}:%val{cursor_char_column}' }
+hook global -group discord FocusIn .* %{ discord-fifo-send "%reg{%} at %val{cursor_line}:%val{cursor_char_column}" }
+hook global -group discord WinDisplay .* %{ discord-fifo-send "%reg{%} at %val{cursor_line}:%val{cursor_char_column}" }
 hook global -group discord KakEnd .* %{ discord-fifo-send '-' }
 
 define-command discord-presence-disable \
