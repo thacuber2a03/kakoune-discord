@@ -16,11 +16,11 @@ fn main() {
 
     loop {
         let info_bytes = fs::read(&filename).unwrap_or_else(|err| {
-            eprintln!("Something went wrong with reading the fifo: {}", err);
+            eprintln!("Something went wrong with reading the fifo: {err}");
             process::exit(1);
         });
         let info_raw = String::from_utf8(info_bytes).unwrap_or_else(|err| {
-            eprintln!("Something went wrong with parsing the bytes: {}", err);
+            eprintln!("Something went wrong with parsing the bytes: {err}");
             process::exit(1);
         });
         let info = info_raw.trim_end();
@@ -31,7 +31,7 @@ fn main() {
             kak_count -= 1;
             if kak_count == 0 {
                 fs::remove_file(filename).unwrap_or_else(|err| {
-                    eprintln!("Something went wrong with removing the fifo: {}", err);
+                    eprintln!("Something went wrong with removing the fifo: {err}");
                     process::exit(1);
                 });
                 break;
