@@ -24,7 +24,6 @@ hook global -group discord KakEnd .* %{ discord-fifo-send '-' }
 define-command discord-presence-disable \
     -docstring "Disable Discord rich presence for this kakoune session" %{
     discord-fifo-send '-'
-    unset-option global discord_fifo
     remove-hooks global discord
 }
 EOF
